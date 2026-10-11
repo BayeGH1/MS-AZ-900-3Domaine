@@ -1,0 +1,1704 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AZ-900 Study Kit – Flashcards &amp; Practice Exam</title>
+  <meta name="description" content="Study all three domains of the Microsoft AZ-900 Azure Fundamentals exam with flashcards, practice questions and a weighted mock exam.">
+  <style>
+:root {
+  --bg: #f5f7fa; --panel: #ffffff; --text: #1b1f24; --muted: #5b6672;
+  --line: #d9dee5; --accent: #0f6cbd; --accent-fg: #ffffff;
+  --good: #1b7f3b; --good-bg: #e3f4e8; --bad: #b3261e; --bad-bg: #fbe7e5;
+  --warn: #8a5a00; --warn-bg: #fff3d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12161b; --panel: #1b2128; --text: #e8ecf1; --muted: #9aa6b3;
+    --line: #2f3944; --accent: #4aa3f0; --accent-fg: #0b1117;
+    --good: #5ccf80; --good-bg: #17301f; --bad: #ff8b84; --bad-bg: #3a1c1a;
+    --warn: #f0c060; --warn-bg: #3a2f14;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); }
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+.top { background: var(--panel); border-bottom: 1px solid var(--line); padding: 16px 0 0; }
+.top h1 { margin: 0; font-size: 1.4rem; }
+.sub { margin: 2px 0 12px; color: var(--muted); }
+.tabs { display: flex; gap: 4px; }
+.tab { border: 0; background: none; color: var(--muted); padding: 10px 16px; font: inherit; cursor: pointer; border-bottom: 3px solid transparent; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+main { padding-top: 20px; padding-bottom: 20px; }
+.view[hidden] { display: none; }
+.foot { color: var(--muted); font-size: .85rem; padding-bottom: 32px; }
+a { color: var(--accent); }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px; }
+.toolbar label { display: flex; gap: 6px; align-items: center; color: var(--muted); font-size: .9rem; }
+select { font: inherit; padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--text); }
+.meta { color: var(--muted); margin: 0 0 12px; font-size: .9rem; }
+
+.btn { font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--text); cursor: pointer; }
+.btn:hover { border-color: var(--accent); }
+.btn:focus-visible, .card:focus-visible, .tab:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
+.btn.good { background: var(--good-bg); color: var(--good); border-color: var(--good); }
+.btn.bad { background: var(--bad-bg); color: var(--bad); border-color: var(--bad); }
+.btn.ghost { background: none; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; justify-content: center; }
+
+/* Flashcard */
+.card { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; perspective: 1200px; text-align: left; font: inherit; color: inherit; }
+.card-inner { display: grid; transition: transform .45s; transform-style: preserve-3d; }
+.card.flipped .card-inner { transform: rotateY(180deg); }
+.face { grid-area: 1 / 1; min-height: 260px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 28px; display: flex; flex-direction: column; justify-content: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.face.back { transform: rotateY(180deg); border-color: var(--accent); }
+.face .label { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.face .text { font-size: 1.2rem; }
+.face .tag { align-self: flex-start; margin-top: 18px; }
+.tag { display: inline-block; font-size: .75rem; padding: 2px 10px; border-radius: 999px; background: var(--warn-bg); color: var(--warn); }
+.tag.done { background: var(--good-bg); color: var(--good); }
+.hint-small { text-align: center; color: var(--muted); font-size: .85rem; margin-top: 10px; }
+
+/* Exam */
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+.panel h2 { margin-top: 0; }
+.exam-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.timer { font-variant-numeric: tabular-nums; font-weight: 600; }
+.timer.low { color: var(--bad); }
+.qtext { font-size: 1.15rem; margin: 8px 0; }
+.hint { color: var(--muted); margin: 0 0 12px; font-size: .9rem; }
+.opts { display: grid; gap: 8px; }
+.opt { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; background: var(--bg); }
+.opt:hover { border-color: var(--accent); }
+.opt.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--panel)); }
+.opt input { margin-top: 4px; }
+.confirm { margin-top: 16px; padding: 14px 16px; border: 1px solid var(--warn); background: var(--warn-bg); color: var(--text); border-radius: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.confirm p { margin: 0 12px 0 0; flex: 1 1 100%; }
+.palette { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.pal { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--text); font: inherit; cursor: pointer; position: relative; }
+.pal.answered { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.pal.current { outline: 3px solid var(--text); outline-offset: 1px; }
+.pal.flag::after { content: "⚑"; position: absolute; top: -8px; right: -4px; font-size: .8rem; color: var(--warn); }
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.row .spacer { flex: 1; }
+
+.score { font-size: 2.4rem; font-weight: 700; margin: 4px 0; }
+.score.pass { color: var(--good); }
+.score.fail { color: var(--bad); }
+table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: .95rem; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+.bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; min-width: 80px; }
+.bar > span { display: block; height: 100%; background: var(--accent); }
+
+.review { margin-top: 16px; display: grid; gap: 14px; }
+.rev { border: 1px solid var(--line); border-radius: 12px; padding: 16px; background: var(--panel); }
+.rev.ok { border-left: 5px solid var(--good); }
+.rev.ko { border-left: 5px solid var(--bad); }
+.rev h3 { font-size: 1rem; margin: 0 0 8px; }
+.rev ul { list-style: none; padding: 0; margin: 8px 0; display: grid; gap: 4px; }
+.rev li { padding: 6px 10px; border-radius: 8px; }
+.rev li.correct { background: var(--good-bg); color: var(--good); }
+.rev li.wrong { background: var(--bad-bg); color: var(--bad); }
+.rev .why { color: var(--muted); font-size: .92rem; margin: 6px 0 0; }
+
+@media (prefers-reduced-motion: reduce) { .card-inner { transition: none; } }
+@media (max-width: 520px) { .face { padding: 20px; min-height: 230px; } .face .text { font-size: 1.05rem; } }
+
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1>AZ-900 · Azure Fundamentals</h1>
+      <p class="sub">Complete study kit: cloud concepts, architecture &amp; services, management &amp; governance</p>
+      <nav class="tabs" role="tablist" aria-label="Study modes">
+        <button role="tab" class="tab active" data-view="flash" aria-selected="true">Flashcards</button>
+        <button role="tab" class="tab" data-view="exam" aria-selected="false">Practice exam</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="view-flash" class="view" aria-live="polite"></section>
+    <section id="view-exam" class="view" hidden></section>
+  </main>
+
+  <footer class="wrap foot">
+    Unofficial study aid, not affiliated with Microsoft. Always verify against
+    <a href="https://learn.microsoft.com/credentials/certifications/azure-fundamentals/" target="_blank" rel="noopener">Microsoft Learn</a>.
+  </footer>
+
+  <script>
+// Domain 1: Describe cloud concepts
+window.FLASHCARDS = (window.FLASHCARDS || []).concat([
+  // ---------- Cloud computing concepts ----------
+  { domain: "D1", topic: "Cloud concepts", q: "What is cloud computing?",
+    a: "Delivery of computing services (servers, storage, databases, networking, software, analytics) over the internet, usually with pay-as-you-go pricing." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is the shared responsibility model?",
+    a: "Security and operational duties are split between the cloud provider and the customer. The split depends on the service type: the more the provider manages (IaaS < PaaS < SaaS), the fewer duties remain with you." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is ALWAYS the customer's responsibility, whatever the service type?",
+    a: "Information and data, devices (mobile and PCs), and accounts and identities." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is ALWAYS the cloud provider's responsibility?",
+    a: "The physical datacenter, the physical network and the physical hosts." },
+  { domain: "D1", topic: "Cloud concepts", q: "Which responsibilities change depending on IaaS, PaaS or SaaS?",
+    a: "Operating system, network controls, applications, and identity/directory infrastructure. Customer owns the most in IaaS, shares in PaaS, and the least in SaaS." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is a public cloud?",
+    a: "Cloud services owned and operated by a provider (such as Azure) and delivered over the internet. Hardware is shared among customers, there is no hardware to buy, and you pay for what you use." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is a private cloud?",
+    a: "Cloud resources used exclusively by a single organization, hosted on-premises or by a third party. Offers more control but you pay for and maintain the infrastructure (capital expense)." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is a hybrid cloud?",
+    a: "A mix of public and private (on-premises) environments that work together. Useful to keep sensitive or legacy workloads local while using the public cloud for scale and flexibility." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is multi-cloud?",
+    a: "Using cloud services from more than one cloud provider (for example Azure and another provider) to avoid dependence on a single vendor or to choose the best service for each need." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is capital expenditure (CapEx)?",
+    a: "Up-front spending on physical infrastructure (servers, datacenters) whose value is deducted over time. Typical of on-premises and private cloud." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is operational expenditure (OpEx)?",
+    a: "Spending on services or products as you use them, billed in the current period, with no up-front cost. Typical of public cloud." },
+  { domain: "D1", topic: "Cloud concepts", q: "What is the consumption-based model?",
+    a: "You pay only for the resources you use. There are no up-front costs, no need to buy infrastructure for peak load, and you can stop paying when you stop using the service." },
+
+  // ---------- Cloud benefits ----------
+  { domain: "D1", topic: "Cloud benefits", q: "What is high availability?",
+    a: "Keeping a service up and running with minimal downtime, typically expressed through a service level agreement (SLA) such as 99.9% or 99.99%." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is scalability?",
+    a: "The ability to adjust resources to meet demand. It can be vertical (bigger machine) or horizontal (more machines)." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is vertical scaling?",
+    a: "Scale up/down: add or remove CPU, memory or storage on an existing resource, such as resizing a VM." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is horizontal scaling?",
+    a: "Scale out/in: add or remove instances of a resource, such as adding more web servers behind a load balancer." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is elasticity?",
+    a: "Automatically adding or removing resources as demand changes so you do not over-provision or run out of capacity. Autoscale is the typical example." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is reliability in the cloud?",
+    a: "The ability of a system to recover from failures and keep functioning, helped by a decentralized design, multiple regions and zones, and redundancy." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is predictability in the cloud?",
+    a: "Performance predictability (autoscaling and load balancing keep workloads responsive) and cost predictability (you can forecast spend using tools such as the pricing calculator and Cost Management)." },
+  { domain: "D1", topic: "Cloud benefits", q: "How does the cloud help with security?",
+    a: "Providers offer built-in security tooling, physical datacenter protection, compliance certifications and threat detection. You choose the level of control (IaaS, PaaS, SaaS) and remain responsible for your data and identities." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is governance in the cloud?",
+    a: "Rules and policies that keep resources consistent and compliant (for example with Azure Policy), plus auditing and templates for standardized deployments." },
+  { domain: "D1", topic: "Cloud benefits", q: "What does manageability mean in the cloud?",
+    a: "Management OF the cloud (autoscaling, deployment templates, monitoring and alerts) and management IN the cloud (portal, CLI, PowerShell, APIs to run your resources)." },
+  { domain: "D1", topic: "Cloud benefits", q: "What are economies of scale?",
+    a: "Large providers buy and run infrastructure at huge volume, so the cost per unit is lower and savings are passed on to customers." },
+  { domain: "D1", topic: "Cloud benefits", q: "How does the cloud help with disaster recovery?",
+    a: "Data and workloads can be replicated to other regions or zones and recovered quickly, without building a second physical datacenter." },
+  { domain: "D1", topic: "Cloud benefits", q: "What is a global reach benefit of the cloud?",
+    a: "You can deploy near your users in many regions worldwide, which lowers latency and helps meet data residency needs." },
+
+  // ---------- Service types ----------
+  { domain: "D1", topic: "Cloud service types", q: "What is Infrastructure as a Service (IaaS)?",
+    a: "The provider supplies virtualized compute, storage and networking. You manage the OS, middleware, apps and data. Example: Azure Virtual Machines." },
+  { domain: "D1", topic: "Cloud service types", q: "What is Platform as a Service (PaaS)?",
+    a: "The provider manages the infrastructure, OS and runtime, so you focus on applications and data. Examples: Azure App Service, Azure SQL Database." },
+  { domain: "D1", topic: "Cloud service types", q: "What is Software as a Service (SaaS)?",
+    a: "Ready-to-use software delivered over the internet. The provider manages everything; you manage your data, users and configuration. Examples: Microsoft 365, Dynamics 365." },
+  { domain: "D1", topic: "Cloud service types", q: "What is serverless computing?",
+    a: "You write code or define logic and the platform runs it on demand, scales automatically and bills per execution, with no server management. Example: Azure Functions." },
+  { domain: "D1", topic: "Cloud service types", q: "Which service type gives you the most control and the most responsibility?",
+    a: "IaaS (outside of on-premises). You manage the OS, patches, runtime, apps and data." },
+  { domain: "D1", topic: "Cloud service types", q: "When is IaaS the best fit?",
+    a: "Lift-and-shift migrations, custom or legacy applications that need OS-level control, and test/dev environments you can create and delete quickly." },
+  { domain: "D1", topic: "Cloud service types", q: "When is PaaS the best fit?",
+    a: "When developers want to build, test and deploy applications without managing servers, OS patching or runtime updates." },
+  { domain: "D1", topic: "Cloud service types", q: "When is SaaS the best fit?",
+    a: "When you need ready-made software such as email, collaboration or CRM, with no development and minimal administration." },
+  { domain: "D1", topic: "Cloud service types", q: "Who patches the operating system in IaaS vs PaaS?",
+    a: "IaaS: the customer patches the OS. PaaS: the provider patches the OS and runtime." },
+  { domain: "D1", topic: "Cloud service types", q: "Order IaaS, PaaS and SaaS from most customer control to least.",
+    a: "IaaS (most), then PaaS, then SaaS (least)." }
+]);
+
+</script>
+  <script>
+// AZ-900 Domain 2: Describe Azure architecture and services
+// Each card: { topic, q, a }
+window.FLASHCARDS = (window.FLASHCARDS || []).concat([
+  // ---------- Core architectural components ----------
+  { domain: "D2", topic: "Core architecture", q: "What is an Azure region?",
+    a: "A geographical area containing one or more datacenters that are networked together with a dedicated, low-latency network." },
+  { domain: "D2", topic: "Core architecture", q: "What is an Azure geography?",
+    a: "A discrete market, typically containing two or more regions, that preserves data residency and compliance boundaries." },
+  { domain: "D2", topic: "Core architecture", q: "What is an Availability Zone?",
+    a: "A physically separate location inside a region. Each zone has one or more datacenters with independent power, cooling and networking. Regions that support zones have at least three of them." },
+  { domain: "D2", topic: "Core architecture", q: "What is a region pair?",
+    a: "Each region is paired with another region in the same geography (usually at least 300 miles apart). Platform updates roll out to paired regions sequentially, and during a broad outage one region of each pair is prioritized for recovery." },
+  { domain: "D2", topic: "Core architecture", q: "What are sovereign regions?",
+    a: "Isolated instances of Azure for legal or compliance needs, for example Azure Government (US government) and Azure China operated by 21Vianet." },
+  { domain: "D2", topic: "Core architecture", q: "What is an availability set?",
+    a: "A logical grouping of VMs inside one datacenter, spread over fault domains and update domains so one hardware failure or maintenance event does not take down every VM. SLA: 99.95%." },
+  { domain: "D2", topic: "Core architecture", q: "Which VM SLA can you reach with Availability Zones?",
+    a: "99.99% when VMs are deployed across two or more zones (99.95% with an availability set, 99.9% for a single VM using premium SSD or ultra disks)." },
+  { domain: "D2", topic: "Core architecture", q: "What is an Azure resource?",
+    a: "A manageable item available through Azure, such as a virtual machine, storage account, web app, database or virtual network." },
+  { domain: "D2", topic: "Core architecture", q: "What is a resource group?",
+    a: "A logical container for resources deployed in a subscription. A resource belongs to exactly one resource group, and deleting the group deletes every resource inside it." },
+  { domain: "D2", topic: "Core architecture", q: "What is an Azure subscription?",
+    a: "A unit of management, billing and scale. It provides authenticated and authorized access to Azure products and services, and it is a billing boundary." },
+  { domain: "D2", topic: "Core architecture", q: "What is the Azure management hierarchy, top to bottom?",
+    a: "Management groups, then subscriptions, then resource groups, then resources." },
+  { domain: "D2", topic: "Core architecture", q: "What are management groups used for?",
+    a: "Organizing subscriptions and applying governance (Azure Policy, RBAC) across many of them. Settings are inherited by everything below. Up to six levels of depth, not counting the root or subscription level." },
+  { domain: "D2", topic: "Core architecture", q: "What is Azure Resource Manager (ARM)?",
+    a: "The deployment and management service for Azure. Every request (portal, CLI, PowerShell, REST API, SDKs) goes through it. It supports declarative infrastructure as code with ARM templates and Bicep." },
+
+  // ---------- Compute and networking ----------
+  { domain: "D2", topic: "Compute & networking", q: "When do you choose an Azure virtual machine?",
+    a: "When you need full control of the OS and software (IaaS): lift-and-shift migrations, custom software, or workloads that need specific OS configuration. You patch and manage the OS." },
+  { domain: "D2", topic: "Compute & networking", q: "What are Virtual Machine Scale Sets?",
+    a: "A service to create and manage a group of identical, load-balanced VMs that can automatically scale out and in based on demand or a schedule." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Virtual Desktop?",
+    a: "A desktop and app virtualization service running in the cloud. It supports Windows 10/11 multi-session and provides secure remote access from any device." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Container Instances (ACI)?",
+    a: "The fastest, simplest way to run a container in Azure without managing VMs or an orchestrator. Billed per second." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Kubernetes Service (AKS)?",
+    a: "A managed Kubernetes service for deploying, scaling and managing containerized applications. Azure handles the control plane." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Container Apps?",
+    a: "A serverless container platform for microservices and APIs. It is built on Kubernetes but hides the cluster management." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure App Service?",
+    a: "A PaaS offering for hosting web apps, REST APIs and mobile backends in .NET, Java, Node.js, Python and PHP. No OS or server management, with built-in scaling." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Functions?",
+    a: "A serverless, event-driven compute service. You run small pieces of code triggered by events and, on the Consumption plan, pay only when the code runs." },
+  { domain: "D2", topic: "Compute & networking", q: "What is an Azure Virtual Network (VNet)?",
+    a: "A private network in Azure. Resources inside it, divided into subnets, can communicate with each other, the internet and on-premises networks." },
+  { domain: "D2", topic: "Compute & networking", q: "What is VNet peering?",
+    a: "Connects two virtual networks (same or different regions) so resources communicate over the Microsoft backbone with low latency, using private IP addresses." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure VPN Gateway?",
+    a: "Sends encrypted traffic between a VNet and an on-premises location (site-to-site) or a single client (point-to-site) over the public internet." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure ExpressRoute?",
+    a: "A private, dedicated connection from on-premises to Azure through a connectivity provider. It does not travel over the public internet, so it offers higher reliability, speed and consistent latency." },
+  { domain: "D2", topic: "Compute & networking", q: "VPN Gateway vs ExpressRoute: what is the key difference?",
+    a: "VPN Gateway = encrypted tunnel over the public internet. ExpressRoute = private connection that bypasses the internet." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure DNS?",
+    a: "A hosting service for DNS domains that uses Microsoft Azure infrastructure to resolve names. You manage records with the same credentials and tools as other Azure resources." },
+  { domain: "D2", topic: "Compute & networking", q: "What is a public endpoint?",
+    a: "A service endpoint with a public IP address reachable over the internet, such as the default endpoint of a storage account." },
+  { domain: "D2", topic: "Compute & networking", q: "What is a private endpoint?",
+    a: "A network interface with a private IP address from your VNet that connects you privately to an Azure service (powered by Azure Private Link). Traffic stays on the Microsoft backbone." },
+
+  // ---------- Storage ----------
+  { domain: "D2", topic: "Storage", q: "What is an Azure storage account?",
+    a: "A container that groups Azure Storage services (Blobs, Files, Queues, Tables) under a unique namespace reachable over HTTP/HTTPS." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Blob Storage?",
+    a: "Object storage for massive amounts of unstructured data such as images, video, documents, backups and logs." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Files?",
+    a: "Fully managed cloud file shares accessible via SMB and NFS, mountable concurrently from cloud and on-premises machines." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Queue Storage?",
+    a: "A messaging store for asynchronous communication between application components, holding large numbers of messages." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Table Storage?",
+    a: "A NoSQL key/attribute store for structured, non-relational data." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Disk Storage?",
+    a: "Block-level storage volumes (managed disks) used by Azure VMs, similar to physical disks in an on-premises server." },
+  { domain: "D2", topic: "Storage", q: "What is Locally Redundant Storage (LRS)?",
+    a: "Three synchronous copies of your data within a single datacenter in the primary region. The cheapest option, but it does not protect against a datacenter-wide failure." },
+  { domain: "D2", topic: "Storage", q: "What is Zone-Redundant Storage (ZRS)?",
+    a: "Synchronous copies across three Availability Zones in the primary region. Protects against a datacenter (zone) failure." },
+  { domain: "D2", topic: "Storage", q: "What is Geo-Redundant Storage (GRS)?",
+    a: "LRS in the primary region plus an asynchronous copy to a secondary (paired) region, where it is stored with LRS. Protects against a regional outage." },
+  { domain: "D2", topic: "Storage", q: "What is Geo-Zone-Redundant Storage (GZRS)?",
+    a: "ZRS in the primary region plus an asynchronous copy to a secondary region (stored with LRS). Combines zone and regional protection." },
+  { domain: "D2", topic: "Storage", q: "What does the RA prefix mean in RA-GRS and RA-GZRS?",
+    a: "Read-access: the data in the secondary region can be read at any time, not only after a failover." },
+  { domain: "D2", topic: "Storage", q: "Describe the blob access tiers.",
+    a: "Hot: frequent access, highest storage cost. Cool: infrequent access, kept at least 30 days. Cold: rare access, at least 90 days. Archive: offline, at least 180 days, lowest storage cost, hours to rehydrate." },
+  { domain: "D2", topic: "Storage", q: "Is data in Azure Storage encrypted by default?",
+    a: "Yes. All data written to Azure Storage is automatically encrypted at rest (256-bit AES) and cannot be disabled." },
+  { domain: "D2", topic: "Storage", q: "What is AzCopy?",
+    a: "A command-line utility to copy blobs or files to and from a storage account." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Storage Explorer?",
+    a: "A standalone graphical app (Windows, macOS, Linux) to manage Azure Storage data such as blobs, files, queues and tables." },
+  { domain: "D2", topic: "Storage", q: "What is Azure File Sync?",
+    a: "Syncs on-premises Windows Server file servers with Azure Files, keeping local performance while centralizing the data in the cloud." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Migrate?",
+    a: "A central hub to discover, assess and migrate on-premises servers, databases, web apps, virtual desktops and data to Azure." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Data Box?",
+    a: "A physical device that Microsoft ships to you for offline transfer of large amounts of data (terabytes to petabytes) into Azure." },
+
+  // ---------- Identity, access and security ----------
+  { domain: "D2", topic: "Identity & security", q: "What is Microsoft Entra ID?",
+    a: "Microsoft's cloud-based identity and access management service (formerly Azure Active Directory). It authenticates users to Microsoft 365, Azure, SaaS and custom apps." },
+  { domain: "D2", topic: "Identity & security", q: "What is Microsoft Entra Domain Services?",
+    a: "Managed domain services (domain join, group policy, LDAP, Kerberos/NTLM) that let you use legacy apps in Azure without running your own domain controllers." },
+  { domain: "D2", topic: "Identity & security", q: "Authentication vs authorization?",
+    a: "Authentication proves who you are. Authorization determines what you are allowed to do once authenticated." },
+  { domain: "D2", topic: "Identity & security", q: "What is single sign-on (SSO)?",
+    a: "Users sign in once with one set of credentials and then access multiple applications and resources without signing in again." },
+  { domain: "D2", topic: "Identity & security", q: "What is multifactor authentication (MFA)?",
+    a: "Requires two or more verification methods from different categories: something you know (password), something you have (phone, security key) and something you are (biometrics)." },
+  { domain: "D2", topic: "Identity & security", q: "Name passwordless authentication options in Azure.",
+    a: "Windows Hello for Business, the Microsoft Authenticator app, and FIDO2 security keys." },
+  { domain: "D2", topic: "Identity & security", q: "What is Conditional Access?",
+    a: "A Microsoft Entra feature of if-then policies. It evaluates signals (user, location, device, app, risk) and enforces decisions such as requiring MFA or blocking access." },
+  { domain: "D2", topic: "Identity & security", q: "What are Microsoft Entra External ID options for B2B and B2C?",
+    a: "B2B collaboration lets external partners use their own identities to access your resources as guests. B2C/customer scenarios let customers sign in to your apps with social or local accounts." },
+  { domain: "D2", topic: "Identity & security", q: "What is Azure role-based access control (RBAC)?",
+    a: "Manages who can do what on Azure resources through role assignments made of a security principal, a role definition and a scope. It follows the principle of least privilege." },
+  { domain: "D2", topic: "Identity & security", q: "At which scopes can an Azure role be assigned?",
+    a: "Management group, subscription, resource group or an individual resource. Permissions are inherited from parent scopes to child scopes." },
+  { domain: "D2", topic: "Identity & security", q: "Owner vs Contributor vs Reader?",
+    a: "Owner: full access and can grant access to others. Contributor: create and manage resources but cannot grant access. Reader: view only." },
+  { domain: "D2", topic: "Identity & security", q: "What are the Zero Trust principles?",
+    a: "Verify explicitly, use least-privilege access, and assume breach. Never trust, always verify." },
+  { domain: "D2", topic: "Identity & security", q: "What is defense in depth?",
+    a: "A layered security strategy: physical security, identity and access, perimeter, network, compute, application and data. A failure in one layer is limited by the others." },
+  { domain: "D2", topic: "Identity & security", q: "What is Microsoft Defender for Cloud?",
+    a: "A cloud security posture management and workload protection tool. It assesses your configuration (secure score), gives recommendations and detects threats across Azure, hybrid and multicloud." }
+]);
+
+</script>
+  <script>
+// Domain 2: additional flashcards
+window.FLASHCARDS = (window.FLASHCARDS || []).concat([
+  { domain: "D2", topic: "Core architecture", q: "What are fault domains and update domains?",
+    a: "A fault domain is a group of hardware sharing a power source and network switch. An update domain is a group of VMs that can be rebooted together during planned maintenance. Availability sets spread VMs across both." },
+  { domain: "D2", topic: "Core architecture", q: "What is a Microsoft Entra tenant and how does it relate to subscriptions?",
+    a: "A tenant is a dedicated instance of Microsoft Entra ID that represents an organization. A subscription trusts one tenant, while a tenant can have many subscriptions." },
+  { domain: "D2", topic: "Compute & networking", q: "What is a network security group (NSG)?",
+    a: "A set of inbound and outbound security rules (source, destination, port, protocol, priority, allow/deny) that filters traffic to and from Azure resources in a virtual network. Attach it to a subnet or a network interface." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Bastion?",
+    a: "A managed service for secure RDP and SSH access to VMs over TLS directly from the Azure portal, without exposing public IP addresses on the VMs." },
+  { domain: "D2", topic: "Compute & networking", q: "Azure Load Balancer vs Application Gateway?",
+    a: "Load Balancer works at layer 4 (TCP/UDP). Application Gateway works at layer 7 (HTTP/HTTPS) and adds features such as URL routing and a web application firewall." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure Firewall?",
+    a: "A managed, cloud-based, stateful network firewall with built-in high availability and scalability to protect your virtual network resources." },
+  { domain: "D2", topic: "Compute & networking", q: "What is Azure DDoS Protection?",
+    a: "Defends against distributed denial-of-service attacks. Basic infrastructure protection is automatic; paid tiers add tuning to the traffic patterns of your own virtual network resources." },
+  { domain: "D2", topic: "Storage", q: "What is Azure SQL Database?",
+    a: "A fully managed PaaS relational database engine. Microsoft handles patching, backups and high availability." },
+  { domain: "D2", topic: "Storage", q: "What is Azure Cosmos DB?",
+    a: "A fully managed, globally distributed NoSQL database with low latency and multiple data models and APIs." },
+  { domain: "D2", topic: "Identity & security", q: "What is Microsoft Entra Connect?",
+    a: "Synchronizes on-premises Active Directory identities with Microsoft Entra ID to enable hybrid identity, so users can use one identity for on-premises and cloud resources." },
+  { domain: "D2", topic: "Identity & security", q: "What is a managed identity?",
+    a: "An automatically managed identity in Microsoft Entra ID for an Azure resource, letting it authenticate to other services without storing credentials in code." },
+  { domain: "D2", topic: "Identity & security", q: "What is Azure Key Vault?",
+    a: "A service to securely store and control access to secrets, encryption keys and certificates, keeping them out of application code." },
+  { domain: "D2", topic: "Identity & security", q: "What is self-service password reset (SSPR)?",
+    a: "A Microsoft Entra feature that lets users reset their own passwords after verifying their identity, reducing help-desk calls." }
+]);
+
+</script>
+  <script>
+// Domain 3: Describe Azure management and governance
+window.FLASHCARDS = (window.FLASHCARDS || []).concat([
+  // ---------- Cost management ----------
+  { domain: "D3", topic: "Cost management", q: "Which factors affect the cost of Azure resources?",
+    a: "Resource type and size, consumption (usage), maintenance, geography/region, network traffic (bandwidth), subscription type and Azure Marketplace purchases." },
+  { domain: "D3", topic: "Cost management", q: "How is network bandwidth billed in Azure?",
+    a: "Inbound data transfer is free. Outbound data leaving Azure datacenters is billed after a free allowance, and some transfers between regions or zones also incur charges." },
+  { domain: "D3", topic: "Cost management", q: "Why can the same resource cost different amounts in different regions?",
+    a: "Prices vary by region because of local infrastructure and operating costs, so choosing a different region can change the bill." },
+  { domain: "D3", topic: "Cost management", q: "What is the Azure Pricing Calculator?",
+    a: "A free web tool to estimate the cost of Azure services BEFORE you deploy them, by configuring products, sizes, regions and usage." },
+  { domain: "D3", topic: "Cost management", q: "What is the Total Cost of Ownership (TCO) calculator?",
+    a: "A tool that compares the cost of running workloads on-premises with running them in Azure, to estimate potential savings from migrating." },
+  { domain: "D3", topic: "Cost management", q: "Pricing Calculator vs TCO Calculator?",
+    a: "Pricing Calculator = estimate the cost of Azure services you plan to use. TCO Calculator = compare on-premises costs with Azure to see the savings." },
+  { domain: "D3", topic: "Cost management", q: "What is Microsoft Cost Management?",
+    a: "A set of tools to monitor, allocate and optimize cloud spending: cost analysis, budgets, alerts and cost-saving recommendations, available in the Azure portal." },
+  { domain: "D3", topic: "Cost management", q: "What does a budget in Cost Management do?",
+    a: "You set a spending threshold and receive alerts (or trigger actions) when actual or forecast costs reach it. A budget does not stop resources by itself." },
+  { domain: "D3", topic: "Cost management", q: "What are Azure tags?",
+    a: "Name/value pairs added to resources, resource groups or subscriptions to organize them and report costs (for example by department or environment). Tags are not inherited by default." },
+  { domain: "D3", topic: "Cost management", q: "What are Azure Reservations?",
+    a: "A commitment to use specific resources (such as VMs) for 1 or 3 years in exchange for a significant discount (up to about 72%) compared with pay-as-you-go." },
+  { domain: "D3", topic: "Cost management", q: "What is Azure Hybrid Benefit?",
+    a: "Lets you use existing Windows Server and SQL Server licenses with Software Assurance (or qualifying subscriptions) on Azure to reduce costs." },
+  { domain: "D3", topic: "Cost management", q: "How does an Azure free account work?",
+    a: "It gives you credit to explore Azure for the first 30 days, popular services free for 12 months, and a set of services that are always free within limits." },
+
+  // ---------- Governance and compliance ----------
+  { domain: "D3", topic: "Governance & compliance", q: "What is Azure Policy?",
+    a: "A service to create, assign and manage policies that enforce rules on resources (for example allowed regions or VM sizes) and evaluate compliance. Effects include Deny, Audit and DeployIfNotExists." },
+  { domain: "D3", topic: "Governance & compliance", q: "What is an Azure Policy initiative?",
+    a: "A group of related policy definitions assigned together to achieve a larger compliance goal." },
+  { domain: "D3", topic: "Governance & compliance", q: "Azure Policy vs Azure RBAC?",
+    a: "Policy controls what is allowed on RESOURCES (their properties and configuration). RBAC controls what USERS are allowed to do." },
+  { domain: "D3", topic: "Governance & compliance", q: "What are resource locks?",
+    a: "Settings that prevent accidental deletion or modification of resources. Two types: CanNotDelete and ReadOnly. They apply to everyone, including Owners, and are inherited by child resources." },
+  { domain: "D3", topic: "Governance & compliance", q: "CanNotDelete vs ReadOnly lock?",
+    a: "CanNotDelete: authorized users can read and modify the resource but cannot delete it. ReadOnly: authorized users can only read it, like the Reader role." },
+  { domain: "D3", topic: "Governance & compliance", q: "At which scopes can a resource lock be applied?",
+    a: "Subscription, resource group or individual resource. Locks are inherited by everything beneath the scope." },
+  { domain: "D3", topic: "Governance & compliance", q: "What is Microsoft Purview?",
+    a: "A portfolio of data governance, risk and compliance solutions that helps you discover, classify, protect and govern data across on-premises, multicloud and SaaS, and manage compliance (for example with Compliance Manager)." },
+  { domain: "D3", topic: "Governance & compliance", q: "What is the Service Trust Portal?",
+    a: "A Microsoft portal with compliance documentation: audit reports, certifications (ISO, SOC), regulatory information and security assessments for Microsoft cloud services." },
+  { domain: "D3", topic: "Governance & compliance", q: "Which tool shows which of your resources do not meet your organization's standards?",
+    a: "Azure Policy's compliance dashboard evaluates resources against assigned policies and shows compliant and non-compliant resources." },
+  { domain: "D3", topic: "Governance & compliance", q: "Which tool prevents someone from accidentally deleting a production resource group?",
+    a: "A resource lock of type CanNotDelete on the resource group." },
+
+  // ---------- Management and deployment tools ----------
+  { domain: "D3", topic: "Management tools", q: "What is the Azure portal?",
+    a: "A web-based graphical interface to create, manage and monitor Azure resources from a browser." },
+  { domain: "D3", topic: "Management tools", q: "What is Azure Cloud Shell?",
+    a: "A browser-based, authenticated shell (Bash or PowerShell) with Azure CLI and PowerShell preinstalled, reachable from the portal, shell.azure.com or the mobile app. No local installation needed." },
+  { domain: "D3", topic: "Management tools", q: "What is Azure CLI?",
+    a: "A cross-platform command-line tool (az commands) to manage Azure resources from scripts or a terminal on Windows, macOS and Linux." },
+  { domain: "D3", topic: "Management tools", q: "What is Azure PowerShell?",
+    a: "A set of cmdlets (Verb-Noun, such as New-AzVM) in the Az module to manage Azure resources from PowerShell, also cross-platform." },
+  { domain: "D3", topic: "Management tools", q: "Azure CLI vs Azure PowerShell?",
+    a: "Both are cross-platform command-line tools with similar capabilities. Choose according to your skills and scripting preference." },
+  { domain: "D3", topic: "Management tools", q: "What is the Azure mobile app?",
+    a: "An app for iOS and Android to monitor and manage resources, check alerts and run Cloud Shell from your phone." },
+  { domain: "D3", topic: "Management tools", q: "What is Azure Arc?",
+    a: "Extends Azure management and services to resources outside Azure (on-premises servers, other clouds, edge, Kubernetes clusters, SQL Server) so you can govern them with Azure tools such as Policy and Monitor." },
+  { domain: "D3", topic: "Management tools", q: "What is infrastructure as code (IaC)?",
+    a: "Defining infrastructure in code or templates so deployments are repeatable, consistent and version-controlled. In Azure: ARM templates (JSON) and Bicep." },
+  { domain: "D3", topic: "Management tools", q: "What are ARM templates and Bicep?",
+    a: "Declarative files describing the resources to deploy. ARM templates use JSON; Bicep is a simpler language that compiles to ARM templates. Both are deployed through Azure Resource Manager." },
+  { domain: "D3", topic: "Management tools", q: "What does declarative deployment mean?",
+    a: "You describe the desired end state and Azure works out how to achieve it. The same template can be deployed repeatedly with the same result (idempotent)." },
+
+  // ---------- Monitoring tools, SLAs and lifecycle ----------
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is Azure Advisor?",
+    a: "A personalized recommendation engine that analyzes your resources and suggests improvements in five categories: reliability, security, performance, cost and operational excellence." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is Azure Service Health?",
+    a: "Personalized information about Azure service issues and planned maintenance that affect your resources. It combines Azure status, Service Health and Resource Health." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "Azure status vs Service Health vs Resource Health?",
+    a: "Azure status: global status of all Azure services and regions. Service Health: issues and maintenance affecting the services and regions you use. Resource Health: the health of an individual resource, such as one VM." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is Azure Monitor?",
+    a: "A platform that collects, analyzes and acts on telemetry (metrics and logs) from Azure and on-premises resources to maximize performance and availability. Includes alerts and dashboards." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is Log Analytics?",
+    a: "A tool in Azure Monitor to query and analyze log data in a workspace using Kusto Query Language (KQL)." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is Application Insights?",
+    a: "An application performance management (APM) feature of Azure Monitor that monitors live web applications, detects performance anomalies and helps diagnose issues." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What are Azure Monitor alerts and action groups?",
+    a: "Alerts notify you proactively when a metric or log condition is met. An action group defines who is notified and what happens (email, SMS, webhook, automation)." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is the Azure Activity log?",
+    a: "A subscription-level log of control-plane events, showing who did what and when to your resources (for example who deleted a VM)." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is a service level agreement (SLA)?",
+    a: "A formal commitment from Microsoft for the uptime and connectivity of a service, expressed as a percentage (for example 99.9% or 99.99%). If Microsoft misses it, you may be eligible for service credits." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What downtime does a 99.9% vs 99.99% SLA allow per year?",
+    a: "99.9% allows about 8.76 hours per year. 99.99% allows about 52.6 minutes per year." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What is a composite SLA?",
+    a: "The combined SLA of an application that depends on several services. You multiply the individual SLAs, so the result is lower than any single one (for example 99.95% x 99.99% is about 99.94%)." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "How can you improve the SLA of an application?",
+    a: "Add redundancy, such as deploying across Availability Zones or multiple regions, or using services with higher SLAs." },
+  { domain: "D3", topic: "Monitoring & SLAs", q: "What are the Azure service lifecycle stages: private preview, public preview and general availability?",
+    a: "Private preview: invited customers only. Public preview: available to all customers, usually without an SLA and not for production. General availability (GA): fully supported, backed by an SLA." }
+]);
+
+</script>
+  <script>
+// Domain 1: Describe cloud concepts
+window.QUESTIONS = (window.QUESTIONS || []).concat([
+  { domain: "D1", topic: "Cloud concepts",
+    q: "A company stops buying servers and instead pays a monthly bill for cloud services. Which change does this describe?",
+    options: ["From CapEx to OpEx", "From OpEx to CapEx", "From public to private cloud", "From PaaS to IaaS"],
+    answer: [0],
+    explain: "Buying hardware is capital expenditure. Paying for services as you use them is operational expenditure." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which two responsibilities always remain with the customer, regardless of the cloud service type? (Choose two.)",
+    options: ["Information and data", "Accounts and identities", "Physical hosts", "Physical network"],
+    answer: [0, 1],
+    explain: "Data, devices, and accounts/identities are always the customer's. Physical hosts and network are always the provider's." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which responsibility is ALWAYS handled by the cloud provider?",
+    options: ["Physical datacenter security", "Customer data classification", "User account management", "Mobile device protection"],
+    answer: [0],
+    explain: "The physical datacenter, network and hosts are always the provider's responsibility." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "A company wants to keep sensitive databases in its own datacenter but run web front ends in Azure. Which cloud model is this?",
+    options: ["Public cloud", "Private cloud", "Hybrid cloud", "Serverless"],
+    answer: [2],
+    explain: "A hybrid cloud combines on-premises (private) resources with public cloud services." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which statement describes a public cloud?",
+    options: [
+      "Hardware is owned by the customer and used by one organization only",
+      "Services are owned and operated by a provider and delivered over the internet",
+      "Services run only in the customer's datacenter",
+      "It always requires a large upfront investment"
+    ],
+    answer: [1],
+    explain: "Public cloud resources are owned by the provider and shared across customers, with no hardware to purchase." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which cloud model is used exclusively by a single organization?",
+    options: ["Private cloud", "Public cloud", "Multi-cloud", "Community marketplace"],
+    answer: [0],
+    explain: "A private cloud is dedicated to one organization, on-premises or hosted." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "An organization uses services from Azure and another cloud provider. What is this called?",
+    options: ["Multi-cloud", "Private cloud", "Vertical scaling", "Serverless"],
+    answer: [0],
+    explain: "Using more than one cloud provider is multi-cloud." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which scenario is an example of the consumption-based model?",
+    options: [
+      "Paying a fixed fee for five years regardless of usage",
+      "Paying only for the compute time you actually use",
+      "Buying servers to handle peak load",
+      "Signing a contract with a termination penalty"
+    ],
+    answer: [1],
+    explain: "The consumption-based model charges for actual usage with no up-front cost." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which of the following is an example of capital expenditure?",
+    options: ["Buying physical servers for a datacenter", "Paying for Azure VMs by the hour", "Paying per execution of a function", "Subscribing to Microsoft 365"],
+    answer: [0],
+    explain: "Purchasing physical infrastructure up front is CapEx. The others are pay-as-you-go OpEx." },
+  { domain: "D1", topic: "Cloud concepts",
+    q: "Which cloud model typically needs the highest up-front investment?",
+    options: ["Private cloud", "Public cloud", "SaaS", "Serverless"],
+    answer: [0],
+    explain: "A private cloud requires buying and maintaining the infrastructure." },
+
+  { domain: "D1", topic: "Cloud benefits",
+    q: "An online store gets huge traffic during holiday sales and little the rest of the year. Which cloud benefit lets it automatically add and remove resources?",
+    options: ["Elasticity", "Predictability", "Governance", "Capital expenditure"],
+    answer: [0],
+    explain: "Elasticity automatically adjusts resources to match demand." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "You increase the number of web server instances behind a load balancer. What type of scaling is this?",
+    options: ["Vertical scaling", "Horizontal scaling", "Disaster recovery", "Governance"],
+    answer: [1],
+    explain: "Adding more instances is horizontal scaling (scale out)." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "You resize a VM to add more CPU cores and memory. What type of scaling is this?",
+    options: ["Vertical scaling", "Horizontal scaling", "Elastic scaling", "Geo-scaling"],
+    answer: [0],
+    explain: "Adding more resources to an existing machine is vertical scaling (scale up)." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Which benefit describes keeping an application running with minimal downtime, as defined by an SLA?",
+    options: ["High availability", "Economies of scale", "Governance", "Manageability"],
+    answer: [0],
+    explain: "High availability is about uptime, commonly stated in SLAs such as 99.99%." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Which cloud benefit describes a system's ability to recover from failures and continue to function?",
+    options: ["Reliability", "Scalability", "Predictability", "Capital expense"],
+    answer: [0],
+    explain: "Reliability is the ability to recover from failures." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Autoscaling and load balancing help keep an application's response times consistent. Which benefit is this?",
+    options: ["Performance predictability", "Cost predictability", "Economies of scale", "Data sovereignty"],
+    answer: [0],
+    explain: "Performance predictability means workloads respond consistently under changing demand." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "You use the pricing calculator to forecast next year's cloud spending. Which benefit does this support?",
+    options: ["Cost predictability", "Vertical scaling", "High availability", "Serverless computing"],
+    answer: [0],
+    explain: "Cost predictability means you can forecast and plan spending." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Why can large cloud providers offer lower prices per unit than most on-premises datacenters?",
+    options: ["Economies of scale", "Vertical scaling", "Hybrid cloud", "Resource locks"],
+    answer: [0],
+    explain: "Providers buy and operate infrastructure at massive scale, reducing per-unit cost." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Using templates, the portal and the CLI to deploy and operate resources is an example of which benefit?",
+    options: ["Manageability", "Elasticity", "Economies of scale", "Reliability"],
+    answer: [0],
+    explain: "Manageability covers management of the cloud (autoscale, templates) and management in the cloud (portal, CLI)." },
+  { domain: "D1", topic: "Cloud benefits",
+    q: "Applying consistent rules and policies so that resources stay compliant describes which cloud benefit?",
+    options: ["Governance", "Elasticity", "Scalability", "Reliability"],
+    answer: [0],
+    explain: "Governance is about consistent policies, compliance and auditing." },
+
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which service type is Azure Virtual Machines?",
+    options: ["IaaS", "PaaS", "SaaS", "Serverless"],
+    answer: [0],
+    explain: "VMs give you virtualized infrastructure; you manage the OS and above." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which service type is Microsoft 365?",
+    options: ["SaaS", "PaaS", "IaaS", "Hybrid"],
+    answer: [0],
+    explain: "Microsoft 365 is ready-to-use software delivered over the internet." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Developers want to deploy a web app without managing the operating system or runtime patching. Which service type should they choose?",
+    options: ["PaaS", "IaaS", "On-premises", "Private cloud"],
+    answer: [0],
+    explain: "PaaS, such as Azure App Service, lets you focus on code while the provider manages the platform." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which service type lets you run code on demand, scales automatically and bills per execution?",
+    options: ["Serverless", "IaaS", "Private cloud", "SaaS"],
+    answer: [0],
+    explain: "Serverless platforms such as Azure Functions run code in response to events." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "A company wants to move an existing application to Azure with minimal code changes and full OS control. Which service type fits best?",
+    options: ["IaaS", "SaaS", "PaaS", "Serverless"],
+    answer: [0],
+    explain: "IaaS (VMs) supports lift-and-shift and gives control of the OS." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Who is responsible for patching the operating system on an Azure virtual machine?",
+    options: ["The customer", "Microsoft", "The hardware vendor", "The internet service provider"],
+    answer: [0],
+    explain: "In IaaS the customer manages OS updates." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Who is responsible for patching the operating system that hosts an Azure App Service web app?",
+    options: ["Microsoft", "The customer", "The app's end users", "The domain registrar"],
+    answer: [0],
+    explain: "In PaaS the provider manages the OS and runtime." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which list orders the service types from MOST to LEAST customer responsibility?",
+    options: ["IaaS, PaaS, SaaS", "SaaS, PaaS, IaaS", "PaaS, IaaS, SaaS", "SaaS, IaaS, PaaS"],
+    answer: [0],
+    explain: "Customer responsibility is highest in IaaS and lowest in SaaS." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which service type requires you to manage only your data, users and settings?",
+    options: ["SaaS", "IaaS", "PaaS", "Private cloud"],
+    answer: [0],
+    explain: "With SaaS the provider manages the application, platform and infrastructure." },
+  { domain: "D1", topic: "Cloud service types",
+    q: "Which two services are examples of PaaS? (Choose two.)",
+    options: ["Azure App Service", "Azure SQL Database", "Azure Virtual Machines", "Microsoft 365"],
+    answer: [0, 1],
+    explain: "App Service and Azure SQL Database are managed platforms. VMs are IaaS and Microsoft 365 is SaaS." }
+]);
+
+</script>
+  <script>
+// AZ-900 Domain 2 practice questions
+// Each question: { topic, q, options[], answer[] (indexes of correct options), explain }
+window.QUESTIONS = (window.QUESTIONS || []).concat([
+  // ---------- Core architecture ----------
+  { domain: "D2", topic: "Core architecture",
+    q: "Which list shows the Azure management hierarchy from the top level to the bottom level?",
+    options: [
+      "Subscription, management group, resource group, resource",
+      "Management group, subscription, resource group, resource",
+      "Management group, resource group, subscription, resource",
+      "Resource group, subscription, management group, resource"
+    ],
+    answer: [1],
+    explain: "Management groups sit above subscriptions, which contain resource groups, which contain resources." },
+  { domain: "D2", topic: "Core architecture",
+    q: "You need your VMs to stay available if one datacenter in a region fails. What should you use?",
+    options: ["Availability Zones", "Resource groups", "Management groups", "Azure Policy"],
+    answer: [0],
+    explain: "Availability Zones are physically separate locations within a region, each with independent power, cooling and networking." },
+  { domain: "D2", topic: "Core architecture",
+    q: "Which VM deployment option provides the highest SLA?",
+    options: [
+      "A single VM with premium SSD",
+      "VMs in an availability set",
+      "VMs spread across Availability Zones",
+      "VMs in a single resource group"
+    ],
+    answer: [2],
+    explain: "Zones give 99.99%, availability sets 99.95%, a single VM with premium SSD 99.9%." },
+  { domain: "D2", topic: "Core architecture",
+    q: "What is a benefit of region pairs?",
+    options: [
+      "Free data transfer between any two regions",
+      "Platform updates are rolled out to one region of the pair at a time",
+      "Both regions are in different geographies",
+      "Resources are automatically replicated to the paired region"
+    ],
+    answer: [1],
+    explain: "Paired regions receive planned updates sequentially, and one region of each pair is prioritized for recovery in a broad outage. Replication is not automatic for every resource." },
+  { domain: "D2", topic: "Core architecture",
+    q: "Which Azure offering is built for a government customer that must keep data isolated for compliance?",
+    options: ["An availability set", "A sovereign region such as Azure Government", "A region pair", "A resource lock"],
+    answer: [1],
+    explain: "Sovereign regions are isolated instances of Azure for legal and compliance needs." },
+  { domain: "D2", topic: "Core architecture",
+    q: "You delete a resource group. What happens to the resources in it?",
+    options: [
+      "They are moved to the default resource group",
+      "They remain but become unmanaged",
+      "They are deleted",
+      "They are moved to another subscription"
+    ],
+    answer: [2],
+    explain: "Deleting a resource group deletes all the resources it contains." },
+  { domain: "D2", topic: "Core architecture",
+    q: "To how many resource groups can a single resource belong at a time?",
+    options: ["One", "Two", "Up to five", "Unlimited"],
+    answer: [0],
+    explain: "A resource exists in exactly one resource group (it can be moved to another)." },
+  { domain: "D2", topic: "Core architecture",
+    q: "You want the same Azure Policy and RBAC settings applied across 20 subscriptions. What should you use?",
+    options: ["Resource groups", "Management groups", "Availability sets", "Virtual networks"],
+    answer: [1],
+    explain: "Management groups organize subscriptions and pass governance settings down to them by inheritance." },
+  { domain: "D2", topic: "Core architecture",
+    q: "Which service lets you deploy Azure resources declaratively using JSON templates or Bicep files?",
+    options: ["Azure Resource Manager", "Azure Migrate", "Azure DNS", "AzCopy"],
+    answer: [0],
+    explain: "ARM templates and Bicep are processed by Azure Resource Manager, the deployment and management layer." },
+  { domain: "D2", topic: "Core architecture",
+    q: "Which Azure construct is a billing boundary?",
+    options: ["Resource group", "Subscription", "Availability Zone", "Region pair"],
+    answer: [1],
+    explain: "A subscription is a unit of management, billing and scale." },
+
+  // ---------- Compute and networking ----------
+  { domain: "D2", topic: "Compute & networking",
+    q: "You want to run a single container quickly without managing servers or an orchestrator. Which service fits best?",
+    options: ["Azure Container Instances", "Azure Kubernetes Service", "Azure Virtual Desktop", "Virtual Machine Scale Sets"],
+    answer: [0],
+    explain: "ACI is the simplest way to run a container without VM or orchestrator management." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Your team needs to orchestrate and scale many containers using Kubernetes. Which service should you use?",
+    options: ["Azure Functions", "Azure Kubernetes Service", "Azure App Service", "Azure Container Instances"],
+    answer: [1],
+    explain: "AKS is the managed Kubernetes service." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You want to host a web app without managing the underlying operating system. Which service should you choose?",
+    options: ["Azure Virtual Machines", "Azure App Service", "Azure Data Box", "Azure ExpressRoute"],
+    answer: [1],
+    explain: "App Service is PaaS for web apps, APIs and mobile backends." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which service runs small pieces of code in response to events and bills only for execution?",
+    options: ["Azure Functions", "Azure Virtual Machines", "Azure Virtual Desktop", "Availability sets"],
+    answer: [0],
+    explain: "Azure Functions is serverless and event-driven." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which service automatically adds or removes identical VMs based on load?",
+    options: ["Availability sets", "Virtual Machine Scale Sets", "Azure Migrate", "Resource groups"],
+    answer: [1],
+    explain: "Scale sets manage a group of identical load-balanced VMs and support autoscale." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Employees need cloud-hosted Windows 11 multi-session desktops accessible from any device. Which service should you use?",
+    options: ["Azure Virtual Desktop", "Azure App Service", "Azure Functions", "Azure Container Apps"],
+    answer: [0],
+    explain: "Azure Virtual Desktop is the desktop and app virtualization service." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You need a private, dedicated connection from your datacenter to Azure that does not use the public internet. What should you use?",
+    options: ["VPN Gateway", "Azure ExpressRoute", "Azure DNS", "VNet peering"],
+    answer: [1],
+    explain: "ExpressRoute uses a private connection through a connectivity provider." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which two options can connect an on-premises network to an Azure virtual network? (Choose two.)",
+    options: ["Azure VPN Gateway", "Azure ExpressRoute", "Availability set", "Azure Functions"],
+    answer: [0, 1],
+    explain: "VPN Gateway (over the internet, encrypted) and ExpressRoute (private connection) both provide hybrid connectivity." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You need to connect two Azure virtual networks so their resources communicate over the Microsoft backbone. What should you configure?",
+    options: ["VNet peering", "Azure DNS", "A resource lock", "A management group"],
+    answer: [0],
+    explain: "VNet peering links virtual networks with low-latency private connectivity." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which service hosts your DNS zones using Azure infrastructure?",
+    options: ["Azure DNS", "Microsoft Entra ID", "Azure Files", "Azure Bastion"],
+    answer: [0],
+    explain: "Azure DNS provides hosting for DNS domains." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You want a storage account to be reachable from your VNet through a private IP address. What should you use?",
+    options: ["A public endpoint", "A private endpoint", "A resource group", "An availability set"],
+    answer: [1],
+    explain: "A private endpoint puts a private IP from your VNet in front of the service (Azure Private Link)." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You need full control over the operating system and installed software for a legacy application. Which option should you choose?",
+    options: ["Azure Functions", "Azure Virtual Machines", "Azure App Service", "Azure Container Apps"],
+    answer: [1],
+    explain: "VMs are IaaS and give you control of the OS (and the responsibility to patch it)." },
+
+  // ---------- Storage ----------
+  { domain: "D2", topic: "Storage",
+    q: "Which Azure Storage service is designed for large amounts of unstructured data such as images and video?",
+    options: ["Blob Storage", "Table Storage", "Queue Storage", "Azure Disk Storage"],
+    answer: [0],
+    explain: "Blob Storage is object storage for unstructured data." },
+  { domain: "D2", topic: "Storage",
+    q: "You need fully managed file shares that can be accessed over SMB. Which service should you use?",
+    options: ["Azure Files", "Azure Queue Storage", "Azure Table Storage", "Azure Data Box"],
+    answer: [0],
+    explain: "Azure Files provides SMB and NFS file shares." },
+  { domain: "D2", topic: "Storage",
+    q: "Which service stores messages that application components process asynchronously?",
+    options: ["Queue Storage", "Blob Storage", "Azure Files", "Azure DNS"],
+    answer: [0],
+    explain: "Queue Storage is the messaging service in a storage account." },
+  { domain: "D2", topic: "Storage",
+    q: "Which Azure Storage service stores structured NoSQL key/attribute data?",
+    options: ["Table Storage", "Azure Files", "Queue Storage", "Disk Storage"],
+    answer: [0],
+    explain: "Table Storage is a NoSQL key/attribute store." },
+  { domain: "D2", topic: "Storage",
+    q: "Which redundancy option copies data synchronously across three Availability Zones in the primary region only?",
+    options: ["LRS", "ZRS", "GRS", "RA-GRS"],
+    answer: [1],
+    explain: "ZRS replicates across three zones in one region. GRS adds a secondary region." },
+  { domain: "D2", topic: "Storage",
+    q: "Which redundancy option lets you read data from the secondary region at any time?",
+    options: ["LRS", "ZRS", "GRS", "RA-GRS"],
+    answer: [3],
+    explain: "RA means read-access to the secondary region." },
+  { domain: "D2", topic: "Storage",
+    q: "Which redundancy option protects against a datacenter failure but costs the least?",
+    options: ["LRS", "ZRS", "GRS", "GZRS"],
+    answer: [1],
+    explain: "LRS does not protect against a datacenter failure. ZRS is the lowest-cost option that does. GRS and GZRS add a second region." },
+  { domain: "D2", topic: "Storage",
+    q: "Which access tier has the lowest storage cost, is offline, and requires rehydration before the data can be read?",
+    options: ["Hot", "Cool", "Cold", "Archive"],
+    answer: [3],
+    explain: "Archive data is offline and takes hours to rehydrate; minimum retention is 180 days." },
+  { domain: "D2", topic: "Storage",
+    q: "Data is read infrequently but must be available immediately, and it will be kept for at least 30 days. Which tier fits?",
+    options: ["Hot", "Cool", "Archive", "Premium"],
+    answer: [1],
+    explain: "Cool is for infrequently accessed data stored for at least 30 days." },
+  { domain: "D2", topic: "Storage",
+    q: "Which command-line tool copies blobs or files to and from a storage account?",
+    options: ["AzCopy", "Azure Migrate", "Azure DNS", "Azure Bastion"],
+    answer: [0],
+    explain: "AzCopy is a command-line utility for transferring data to and from Azure Storage." },
+  { domain: "D2", topic: "Storage",
+    q: "You must move hundreds of terabytes to Azure, but your network is too slow. What should you use?",
+    options: ["Azure Data Box", "AzCopy", "Azure File Sync", "VNet peering"],
+    answer: [0],
+    explain: "Data Box is a physical device for offline bulk transfer." },
+  { domain: "D2", topic: "Storage",
+    q: "Which service helps you assess and migrate on-premises servers and databases to Azure?",
+    options: ["Azure Migrate", "Azure Storage Explorer", "Azure Files", "Azure Functions"],
+    answer: [0],
+    explain: "Azure Migrate is the central hub for discovery, assessment and migration." },
+  { domain: "D2", topic: "Storage",
+    q: "You want to keep an on-premises Windows file server in sync with an Azure file share. What should you use?",
+    options: ["Azure File Sync", "Azure Data Box", "Azure Queue Storage", "Azure DNS"],
+    answer: [0],
+    explain: "Azure File Sync syncs on-premises Windows Server with Azure Files." },
+
+  // ---------- Identity and security ----------
+  { domain: "D2", topic: "Identity & security",
+    q: "Which service is Microsoft's cloud-based identity and access management service?",
+    options: ["Microsoft Entra ID", "Azure DNS", "Azure Migrate", "Azure Files"],
+    answer: [0],
+    explain: "Microsoft Entra ID (formerly Azure Active Directory) handles authentication and access management." },
+  { domain: "D2", topic: "Identity & security",
+    q: "You need domain join, group policy and LDAP in Azure without deploying domain controllers. What should you use?",
+    options: ["Microsoft Entra Domain Services", "Azure Virtual Desktop", "Azure DNS", "Azure Key Vault"],
+    answer: [0],
+    explain: "Entra Domain Services provides managed domain services." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which process verifies who a user is?",
+    options: ["Authentication", "Authorization", "Accounting", "Encryption"],
+    answer: [0],
+    explain: "Authentication proves identity. Authorization decides what that identity can access." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which scenario is an example of multifactor authentication?",
+    options: [
+      "Entering a password twice",
+      "Entering a password and approving a prompt in an authenticator app",
+      "Using a 30-character password",
+      "Signing in once to access multiple apps"
+    ],
+    answer: [1],
+    explain: "MFA combines factors from different categories: something you know plus something you have. The last option describes SSO." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which two are passwordless authentication methods? (Choose two.)",
+    options: ["Windows Hello for Business", "FIDO2 security keys", "Security questions", "SMS code plus password"],
+    answer: [0, 1],
+    explain: "Windows Hello for Business, Microsoft Authenticator and FIDO2 keys are passwordless options." },
+  { domain: "D2", topic: "Identity & security",
+    q: "You need to require MFA when users sign in from an unfamiliar location. Which feature should you use?",
+    options: ["Conditional Access", "Azure Policy", "Resource locks", "Availability zones"],
+    answer: [0],
+    explain: "Conditional Access evaluates signals such as location and enforces controls such as MFA." },
+  { domain: "D2", topic: "Identity & security",
+    q: "What does single sign-on (SSO) allow?",
+    options: [
+      "Sign in once to access multiple applications",
+      "Replace all passwords with biometrics",
+      "Encrypt all stored data",
+      "Block risky sign-ins automatically"
+    ],
+    answer: [0],
+    explain: "SSO lets users authenticate once and access many apps without signing in again." },
+  { domain: "D2", topic: "Identity & security",
+    q: "You want to let employees of a partner company access your apps using their own organization's credentials. What should you use?",
+    options: ["Microsoft Entra B2B collaboration (external identities)", "Azure Migrate", "Azure DNS", "VNet peering"],
+    answer: [0],
+    explain: "B2B collaboration invites external users as guests who sign in with their own identities." },
+  { domain: "D2", topic: "Identity & security",
+    q: "A user must create and manage VMs but must not be able to grant other users access. Which built-in role should you assign?",
+    options: ["Owner", "Contributor", "Reader", "User Access Administrator"],
+    answer: [1],
+    explain: "Contributor can manage resources but cannot assign roles. Owner can grant access." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which two statements describe the Zero Trust model? (Choose two.)",
+    options: [
+      "Verify explicitly",
+      "Assume breach",
+      "Trust any request from the corporate network",
+      "Grant broad access to speed up work"
+    ],
+    answer: [0, 1],
+    explain: "Zero Trust: verify explicitly, use least-privilege access, assume breach." },
+  { domain: "D2", topic: "Identity & security",
+    q: "In the defense in depth model, which layer includes protection against DDoS attacks?",
+    options: ["Perimeter", "Data", "Application", "Physical security"],
+    answer: [0],
+    explain: "The perimeter layer uses DDoS protection and firewalls to filter large-scale attacks before they reach the network." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which tool gives you a secure score and recommendations to improve the security posture of your Azure resources?",
+    options: ["Microsoft Defender for Cloud", "Azure Migrate", "Azure DNS", "Azure Data Box"],
+    answer: [0],
+    explain: "Defender for Cloud assesses configuration, provides a secure score and detects threats." }
+]);
+
+</script>
+  <script>
+// Domain 2: additional questions
+window.QUESTIONS = (window.QUESTIONS || []).concat([
+  { domain: "D2", topic: "Core architecture",
+    q: "How do availability sets protect VMs from hardware and maintenance problems?",
+    options: [
+      "By spreading VMs across fault domains and update domains",
+      "By copying VMs to another geography",
+      "By encrypting the VM disks",
+      "By assigning resource locks"
+    ],
+    answer: [0],
+    explain: "Availability sets distribute VMs across fault domains (power/network) and update domains (maintenance reboots)." },
+  { domain: "D2", topic: "Core architecture",
+    q: "How many Microsoft Entra tenants can a single Azure subscription trust?",
+    options: ["One", "Two", "Five", "Unlimited"],
+    answer: [0],
+    explain: "A subscription trusts one tenant, but a tenant can have many subscriptions." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You need to allow only HTTPS traffic to a subnet and deny all other inbound traffic. What should you configure?",
+    options: ["A network security group", "An availability set", "A resource lock", "A storage account"],
+    answer: [0],
+    explain: "NSGs filter inbound and outbound traffic with allow/deny rules." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "You want to connect to VMs over RDP and SSH from the Azure portal without assigning them public IP addresses. Which service should you use?",
+    options: ["Azure Bastion", "VPN Gateway", "Azure DNS", "Azure File Sync"],
+    answer: [0],
+    explain: "Azure Bastion provides secure browser-based RDP/SSH connectivity over TLS." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which service distributes HTTP/HTTPS traffic using URL-based routing and can include a web application firewall?",
+    options: ["Application Gateway", "Azure Load Balancer", "Azure DNS", "ExpressRoute"],
+    answer: [0],
+    explain: "Application Gateway is a layer 7 load balancer; Azure Load Balancer works at layer 4." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which service provides a managed, stateful firewall for your virtual network?",
+    options: ["Azure Firewall", "Azure Bastion", "Azure Advisor", "Azure Data Box"],
+    answer: [0],
+    explain: "Azure Firewall is a cloud-native managed network firewall." },
+  { domain: "D2", topic: "Compute & networking",
+    q: "Which Azure service protects your resources against distributed denial-of-service (DDoS) attacks?",
+    options: ["Azure DDoS Protection", "Azure Key Vault", "Azure Migrate", "Azure Policy"],
+    answer: [0],
+    explain: "Azure DDoS Protection mitigates volumetric and protocol attacks." },
+  { domain: "D2", topic: "Storage",
+    q: "Which two redundancy options protect against a regional outage? (Choose two.)",
+    options: ["GRS", "GZRS", "LRS", "ZRS"],
+    answer: [0, 1],
+    explain: "GRS and GZRS copy data to a secondary region. LRS and ZRS keep data in one region." },
+  { domain: "D2", topic: "Storage",
+    q: "Which Azure service is a fully managed PaaS relational database?",
+    options: ["Azure SQL Database", "Azure Queue Storage", "Azure Table Storage", "Azure Files"],
+    answer: [0],
+    explain: "Azure SQL Database is a managed relational database service." },
+  { domain: "D2", topic: "Storage",
+    q: "Which Azure service is a globally distributed NoSQL database with low latency?",
+    options: ["Azure Cosmos DB", "Azure SQL Database", "Azure Blob Storage", "Azure Disk Storage"],
+    answer: [0],
+    explain: "Cosmos DB is a globally distributed multi-model NoSQL database." },
+  { domain: "D2", topic: "Identity & security",
+    q: "You want users to use the same identity for on-premises Active Directory and Microsoft Entra ID. Which tool synchronizes the identities?",
+    options: ["Microsoft Entra Connect", "Azure Bastion", "Azure DNS", "Azure Arc"],
+    answer: [0],
+    explain: "Entra Connect synchronizes on-premises AD with Microsoft Entra ID (hybrid identity)." },
+  { domain: "D2", topic: "Identity & security",
+    q: "An Azure web app must access a database without credentials stored in code. What should you use?",
+    options: ["A managed identity", "A shared storage key in config", "A public endpoint", "A resource lock"],
+    answer: [0],
+    explain: "Managed identities let Azure resources authenticate to services without handling credentials." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Where should an application store database connection secrets and encryption keys securely?",
+    options: ["Azure Key Vault", "Azure Queue Storage", "A resource group tag", "Azure Advisor"],
+    answer: [0],
+    explain: "Key Vault stores secrets, keys and certificates with access control." },
+  { domain: "D2", topic: "Identity & security",
+    q: "Which feature allows users to reset their own forgotten passwords without calling the help desk?",
+    options: ["Self-service password reset", "Conditional Access", "Resource locks", "Azure RBAC"],
+    answer: [0],
+    explain: "SSPR is a Microsoft Entra feature for user-driven password resets." }
+]);
+
+</script>
+  <script>
+// Domain 3: Describe Azure management and governance
+window.QUESTIONS = (window.QUESTIONS || []).concat([
+  // ---------- Cost management ----------
+  { domain: "D3", topic: "Cost management",
+    q: "You want to estimate the monthly cost of a set of Azure services before deploying them. Which tool should you use?",
+    options: ["Azure Pricing Calculator", "Azure Advisor", "Azure Service Health", "Azure Policy"],
+    answer: [0],
+    explain: "The Pricing Calculator estimates the cost of Azure services you plan to use." },
+  { domain: "D3", topic: "Cost management",
+    q: "You want to compare the cost of running your workloads on-premises with the cost of running them in Azure. Which tool should you use?",
+    options: ["TCO calculator", "Azure Monitor", "Azure Arc", "Service Trust Portal"],
+    answer: [0],
+    explain: "The Total Cost of Ownership calculator compares on-premises and Azure costs." },
+  { domain: "D3", topic: "Cost management",
+    q: "Which tool lets you set a spending threshold and receive alerts when it is reached?",
+    options: ["Microsoft Cost Management budgets", "Azure Policy", "Resource locks", "Azure Bastion"],
+    answer: [0],
+    explain: "Cost Management budgets alert you when actual or forecast spending reaches a threshold." },
+  { domain: "D3", topic: "Cost management",
+    q: "You need to report Azure costs by department across several resource groups. What should you use?",
+    options: ["Tags", "Resource locks", "Availability sets", "Azure Advisor"],
+    answer: [0],
+    explain: "Tags (name/value pairs) let you group resources and filter costs by department or environment." },
+  { domain: "D3", topic: "Cost management",
+    q: "Which two factors can affect the cost of an Azure virtual machine? (Choose two.)",
+    options: ["The region where it is deployed", "The VM size", "The color theme of the portal", "The user's browser"],
+    answer: [0, 1],
+    explain: "Resource type/size and geography both influence price." },
+  { domain: "D3", topic: "Cost management",
+    q: "Which type of data transfer is free in Azure?",
+    options: ["Inbound data transfer", "All outbound data transfer", "Transfer between regions", "None; all transfer is billed"],
+    answer: [0],
+    explain: "Inbound data transfer is free; outbound transfer is billed after a free allowance." },
+  { domain: "D3", topic: "Cost management",
+    q: "A company can commit to using VMs for three years in exchange for a lower price. Which offering is this?",
+    options: ["Azure Reservations", "Azure Hybrid Benefit", "Azure Advisor", "Resource locks"],
+    answer: [0],
+    explain: "Reservations give discounts for 1- or 3-year commitments." },
+  { domain: "D3", topic: "Cost management",
+    q: "Which offering reduces Azure costs by letting you use existing Windows Server licenses with Software Assurance?",
+    options: ["Azure Hybrid Benefit", "Azure Reservations", "Azure Arc", "Management groups"],
+    answer: [0],
+    explain: "Azure Hybrid Benefit applies existing on-premises licenses to Azure workloads." },
+  { domain: "D3", topic: "Cost management",
+    q: "Which tool provides cost analysis and recommendations to reduce cloud spending across your subscriptions?",
+    options: ["Microsoft Cost Management", "Azure DNS", "Azure Files", "Microsoft Entra ID"],
+    answer: [0],
+    explain: "Cost Management monitors, allocates and optimizes costs." },
+
+  // ---------- Governance and compliance ----------
+  { domain: "D3", topic: "Governance & compliance",
+    q: "You must ensure that resources can only be deployed in specific Azure regions. Which service should you use?",
+    options: ["Azure Policy", "Azure RBAC", "Azure Monitor", "Azure Advisor"],
+    answer: [0],
+    explain: "Azure Policy enforces rules such as allowed locations." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "Which tool enforces rules on what resource configurations are allowed, as opposed to what users can do?",
+    options: ["Azure Policy", "Azure RBAC", "Microsoft Entra ID", "Azure Bastion"],
+    answer: [0],
+    explain: "Policy governs resources; RBAC governs user permissions." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "You need to prevent anyone, including administrators, from accidentally deleting a production storage account. What should you apply?",
+    options: ["A CanNotDelete resource lock", "A tag", "An availability set", "A budget"],
+    answer: [0],
+    explain: "A CanNotDelete lock blocks deletion even for Owners until the lock is removed." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "Which resource lock type allows users to read a resource but not modify or delete it?",
+    options: ["ReadOnly", "CanNotDelete", "Contributor", "Tag lock"],
+    answer: [0],
+    explain: "A ReadOnly lock limits everyone to read operations." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "A resource lock is applied to a resource group. What happens to the resources inside it?",
+    options: ["They inherit the lock", "They are unaffected", "They are moved to another group", "They are deleted"],
+    answer: [0],
+    explain: "Locks are inherited by child resources." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "Where can you find Microsoft's audit reports and compliance documentation such as ISO and SOC reports?",
+    options: ["Service Trust Portal", "Azure Advisor", "Azure Cost Management", "Azure Cloud Shell"],
+    answer: [0],
+    explain: "The Service Trust Portal hosts compliance reports and certifications." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "Which Microsoft solution helps you discover, classify and govern data across on-premises, multicloud and SaaS?",
+    options: ["Microsoft Purview", "Azure Migrate", "Azure DNS", "Azure Data Box"],
+    answer: [0],
+    explain: "Microsoft Purview provides data governance, risk and compliance solutions." },
+  { domain: "D3", topic: "Governance & compliance",
+    q: "You want to apply a group of related policies together to meet a compliance standard. What do you create?",
+    options: ["An Azure Policy initiative", "A resource lock", "A management tag", "A resource group"],
+    answer: [0],
+    explain: "An initiative is a collection of policy definitions assigned as a unit." },
+
+  // ---------- Management and deployment tools ----------
+  { domain: "D3", topic: "Management tools",
+    q: "Which tool provides a browser-based command line with Azure CLI and PowerShell already installed and authenticated?",
+    options: ["Azure Cloud Shell", "Azure Advisor", "Azure Arc", "Azure Policy"],
+    answer: [0],
+    explain: "Cloud Shell runs in the browser with the tools preinstalled." },
+  { domain: "D3", topic: "Management tools",
+    q: "Which two tools can you use to manage Azure resources from the command line or scripts? (Choose two.)",
+    options: ["Azure CLI", "Azure PowerShell", "Azure Pricing Calculator", "Service Trust Portal"],
+    answer: [0, 1],
+    explain: "Azure CLI and Azure PowerShell are the command-line management tools." },
+  { domain: "D3", topic: "Management tools",
+    q: "Which tool uses a web-based graphical interface to create and manage Azure resources?",
+    options: ["Azure portal", "Azure CLI", "Azure PowerShell", "Bicep"],
+    answer: [0],
+    explain: "The Azure portal is the graphical web interface." },
+  { domain: "D3", topic: "Management tools",
+    q: "You need to manage on-premises servers and Kubernetes clusters in other clouds using Azure management tools. What should you use?",
+    options: ["Azure Arc", "Azure Bastion", "Azure Files", "Azure Reservations"],
+    answer: [0],
+    explain: "Azure Arc extends Azure management and governance to resources outside Azure." },
+  { domain: "D3", topic: "Management tools",
+    q: "Which two options let you deploy Azure resources using infrastructure as code? (Choose two.)",
+    options: ["ARM templates", "Bicep", "Azure Advisor", "Azure Monitor alerts"],
+    answer: [0, 1],
+    explain: "ARM templates (JSON) and Bicep are declarative IaC options for Azure." },
+  { domain: "D3", topic: "Management tools",
+    q: "What is a key benefit of using ARM templates or Bicep for deployments?",
+    options: [
+      "Deployments are repeatable and consistent",
+      "They remove the need for subscriptions",
+      "They guarantee the lowest price",
+      "They replace Microsoft Entra ID"
+    ],
+    answer: [0],
+    explain: "IaC makes deployments repeatable, consistent and version-controllable." },
+  { domain: "D3", topic: "Management tools",
+    q: "You prefer to check and manage your Azure resources from your phone. What should you use?",
+    options: ["Azure mobile app", "Azure Data Box", "Azure Bastion", "AzCopy"],
+    answer: [0],
+    explain: "The Azure mobile app lets you monitor and manage resources on iOS and Android." },
+
+  // ---------- Monitoring tools, SLAs and lifecycle ----------
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which tool gives personalized recommendations to improve reliability, security, performance, cost and operational excellence?",
+    options: ["Azure Advisor", "Azure Service Health", "Azure Policy", "Azure Migrate"],
+    answer: [0],
+    explain: "Azure Advisor analyzes your resources and suggests best practices in five categories." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which tool informs you about Azure outages and planned maintenance that affect your resources?",
+    options: ["Azure Service Health", "Azure Advisor", "Cost Management", "Azure Cloud Shell"],
+    answer: [0],
+    explain: "Service Health provides personalized alerts about incidents and maintenance." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "You want to see whether a single virtual machine is currently healthy. Which part of Service Health should you use?",
+    options: ["Resource Health", "Azure status", "Cost analysis", "Activity log"],
+    answer: [0],
+    explain: "Resource Health shows the health of an individual resource." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which service collects and analyzes metrics and logs from Azure and on-premises resources and can trigger alerts?",
+    options: ["Azure Monitor", "Azure Advisor", "Azure Files", "Azure Policy"],
+    answer: [0],
+    explain: "Azure Monitor is the telemetry platform for metrics, logs and alerts." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which tool do you use to run Kusto (KQL) queries over log data?",
+    options: ["Log Analytics", "Azure Cloud Shell", "Azure Reservations", "Azure Resource Manager"],
+    answer: [0],
+    explain: "Log Analytics queries logs stored in a workspace using KQL." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which Azure Monitor feature helps you monitor the performance of a live web application and detect anomalies?",
+    options: ["Application Insights", "Azure Advisor", "Azure Arc", "Cost Management"],
+    answer: [0],
+    explain: "Application Insights is application performance management for web apps." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "You need to find out who deleted a virtual machine yesterday. Where should you look?",
+    options: ["Azure Activity log", "Azure Pricing Calculator", "Azure Advisor recommendations", "Service Trust Portal"],
+    answer: [0],
+    explain: "The Activity log records subscription-level operations and who performed them." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "An application depends on a web tier with a 99.95% SLA and a database with a 99.99% SLA. What is true about the composite SLA?",
+    options: [
+      "It is lower than either individual SLA",
+      "It is higher than both individual SLAs",
+      "It equals the highest SLA",
+      "SLAs cannot be combined"
+    ],
+    answer: [0],
+    explain: "Composite SLAs are calculated by multiplying the individual SLAs, so the result is lower than each." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which action can improve the availability SLA of an application?",
+    options: [
+      "Deploy it across multiple Availability Zones",
+      "Add more tags to resources",
+      "Create a budget",
+      "Apply a ReadOnly lock"
+    ],
+    answer: [0],
+    explain: "Adding redundancy such as Availability Zones increases the SLA." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which lifecycle stage means a service is available to all customers but is typically not covered by an SLA?",
+    options: ["Public preview", "General availability", "Private preview", "Retirement"],
+    answer: [0],
+    explain: "Public preview features are open to all but are generally not backed by an SLA." },
+  { domain: "D3", topic: "Monitoring & SLAs",
+    q: "Which lifecycle stage means a service is fully supported and backed by an SLA?",
+    options: ["General availability", "Private preview", "Public preview", "Beta test"],
+    answer: [0],
+    explain: "General availability (GA) services are production-ready and covered by an SLA." }
+]);
+
+</script>
+  <script>
+(() => {
+  'use strict';
+
+  const CARDS = window.FLASHCARDS || [];
+  const QUESTIONS = window.QUESTIONS || [];
+  const DOMAINS = {
+    D1: { short: 'Cloud concepts', weight: '25–30%' },
+    D2: { short: 'Azure architecture & services', weight: '35–40%' },
+    D3: { short: 'Management & governance', weight: '30–35%' }
+  };
+  const PASS_PCT = 70;                         // AZ-900 passing score is 700/1000
+  const SECONDS_PER_Q = 90;                    // custom practice timer
+  const MOCK_PLAN = { D1: 11, D2: 15, D3: 14 };  // 40 questions weighted like the real exam
+  const MOCK_SECONDS = 45 * 60;
+
+  const $ = (sel, el = document) => el.querySelector(sel);
+  const $$ = (sel, el = document) => [...el.querySelectorAll(sel)];
+  const esc = s => String(s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const shuffle = arr => {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('az900:' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem('az900:' + k, JSON.stringify(v)); } catch { /* storage unavailable */ } }
+  };
+
+  const dName = d => `Domain ${d.slice(1)} · ${DOMAINS[d].short}`;
+  const topicsFor = domain => [...new Set([...CARDS, ...QUESTIONS]
+    .filter(x => domain === 'all' || x.domain === domain).map(x => x.topic))];
+  const domainOptions = sel =>
+    `<option value="all">All domains</option>` +
+    Object.keys(DOMAINS).map(d => `<option value="${d}" ${d === sel ? 'selected' : ''}>${esc(dName(d))} (${DOMAINS[d].weight})</option>`).join('');
+  const topicOptions = (domain, sel) =>
+    `<option value="all">All topics</option>` +
+    topicsFor(domain).map(t => `<option value="${esc(t)}" ${t === sel ? 'selected' : ''}>${esc(t)}</option>`).join('');
+  const validDomain = d => d === 'all' || d in DOMAINS;
+
+  /* ------------------------------------------------------------------ */
+  /* Tabs                                                               */
+  /* ------------------------------------------------------------------ */
+  let currentView = 'flash';
+  $$('.tab').forEach(btn => btn.addEventListener('click', () => {
+    currentView = btn.dataset.view;
+    $$('.tab').forEach(b => {
+      const on = b === btn;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    $('#view-flash').hidden = currentView !== 'flash';
+    $('#view-exam').hidden = currentView !== 'exam';
+  }));
+
+  /* ------------------------------------------------------------------ */
+  /* Flashcards                                                         */
+  /* ------------------------------------------------------------------ */
+  const flash = {
+    domain: store.get('flashDomain', 'all'),
+    topic: store.get('flashTopic', 'all'),
+    hideKnown: store.get('hideKnown', false),
+    known: new Set(store.get('known', [])),
+    deck: [], i: 0, flipped: false, confirmReset: false
+  };
+  if (!validDomain(flash.domain)) flash.domain = 'all';
+  if (flash.topic !== 'all' && !topicsFor(flash.domain).includes(flash.topic)) flash.topic = 'all';
+
+  function buildDeck(doShuffle) {
+    const d = CARDS.filter(c =>
+      (flash.domain === 'all' || c.domain === flash.domain) &&
+      (flash.topic === 'all' || c.topic === flash.topic) &&
+      !(flash.hideKnown && flash.known.has(c.q)));
+    flash.deck = doShuffle ? shuffle(d) : d;
+    flash.i = 0;
+    flash.flipped = false;
+  }
+
+  function renderFlash() {
+    const el = $('#view-flash');
+    const scope = CARDS.filter(c =>
+      (flash.domain === 'all' || c.domain === flash.domain) &&
+      (flash.topic === 'all' || c.topic === flash.topic));
+    const mastered = scope.filter(c => flash.known.has(c.q)).length;
+    const c = flash.deck[flash.i];
+
+    let body;
+    if (!c) {
+      body = `<div class="panel"><h2>Nothing to show</h2>
+        <p>${flash.hideKnown && scope.length ? 'You have mastered every card in this selection. Nice work!' : 'No cards for this selection.'}</p>
+        ${flash.hideKnown ? '<button class="btn" data-act="show-all">Show mastered cards too</button>' : ''}</div>`;
+    } else {
+      const done = flash.known.has(c.q);
+      body = `
+        <button class="card ${flash.flipped ? 'flipped' : ''}" data-act="flip"
+                aria-label="Flashcard. Press to flip." aria-pressed="${flash.flipped}">
+          <span class="card-inner">
+            <span class="face front" aria-hidden="${flash.flipped}">
+              <span class="label">Question · ${flash.i + 1} / ${flash.deck.length}</span>
+              <span class="text">${esc(c.q)}</span>
+              <span class="tag ${done ? 'done' : ''}">D${c.domain.slice(1)} · ${esc(c.topic)}${done ? ' · mastered' : ''}</span>
+            </span>
+            <span class="face back" aria-hidden="${!flash.flipped}">
+              <span class="label">Answer</span>
+              <span class="text">${esc(c.a)}</span>
+            </span>
+          </span>
+        </button>
+        <p class="hint-small">Click the card or press Space to flip · ← → to navigate</p>
+        <div class="actions">
+          <button class="btn" data-act="prev">← Previous</button>
+          <button class="btn bad" data-act="learning">Still learning</button>
+          <button class="btn good" data-act="known">Got it ✓</button>
+          <button class="btn" data-act="next">Next →</button>
+        </div>`;
+    }
+
+    el.innerHTML = `
+      <div class="toolbar">
+        <label>Domain <select id="f-domain">${domainOptions(flash.domain)}</select></label>
+        <label>Topic <select id="f-topic">${topicOptions(flash.domain, flash.topic)}</select></label>
+        <label><input type="checkbox" id="f-hide" ${flash.hideKnown ? 'checked' : ''}> Hide mastered</label>
+        <button class="btn ghost" data-act="shuffle">Shuffle</button>
+        <button class="btn ${flash.confirmReset ? 'bad' : 'ghost'}" data-act="reset">${flash.confirmReset ? 'Click again to confirm reset' : 'Reset progress'}</button>
+      </div>
+      <p class="meta">Mastered ${mastered} of ${scope.length} cards in this selection · ${CARDS.length} cards in total</p>
+      ${body}`;
+  }
+
+  function flashStep(delta) {
+    if (!flash.deck.length) return;
+    flash.i = (flash.i + delta + flash.deck.length) % flash.deck.length;
+    flash.flipped = false;
+    flash.confirmReset = false;
+    renderFlash();
+  }
+
+  function flashMark(known) {
+    const c = flash.deck[flash.i];
+    if (!c) return;
+    if (known) flash.known.add(c.q); else flash.known.delete(c.q);
+    store.set('known', [...flash.known]);
+    if (known && flash.hideKnown) {
+      flash.deck.splice(flash.i, 1);
+      if (flash.i >= flash.deck.length) flash.i = 0;
+      flash.flipped = false;
+      renderFlash();
+    } else {
+      flashStep(1);
+    }
+  }
+
+  function flipCard() {
+    const card = $('#view-flash .card');
+    if (!card) return;
+    flash.flipped = !flash.flipped;
+    card.classList.toggle('flipped', flash.flipped);
+    card.setAttribute('aria-pressed', String(flash.flipped));
+    $('.face.front', card).setAttribute('aria-hidden', String(flash.flipped));
+    $('.face.back', card).setAttribute('aria-hidden', String(!flash.flipped));
+  }
+
+  $('#view-flash').addEventListener('click', e => {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    switch (btn.dataset.act) {
+      case 'flip': flipCard(); break;
+      case 'prev': flashStep(-1); break;
+      case 'next': flashStep(1); break;
+      case 'known': flashMark(true); break;
+      case 'learning': flashMark(false); break;
+      case 'shuffle': flash.confirmReset = false; buildDeck(true); renderFlash(); break;
+      case 'show-all':
+        flash.hideKnown = false; store.set('hideKnown', false);
+        buildDeck(false); renderFlash(); break;
+      case 'reset':
+        if (!flash.confirmReset) {
+          flash.confirmReset = true; renderFlash();
+        } else {
+          flash.confirmReset = false;
+          flash.known.clear(); store.set('known', []);
+          buildDeck(false); renderFlash();
+        }
+        break;
+    }
+  });
+  $('#view-flash').addEventListener('change', e => {
+    if (e.target.id === 'f-domain') {
+      flash.domain = e.target.value; flash.topic = 'all';
+      store.set('flashDomain', flash.domain); store.set('flashTopic', 'all');
+    } else if (e.target.id === 'f-topic') {
+      flash.topic = e.target.value; store.set('flashTopic', flash.topic);
+    } else if (e.target.id === 'f-hide') {
+      flash.hideKnown = e.target.checked; store.set('hideKnown', flash.hideKnown);
+    } else return;
+    flash.confirmReset = false;
+    buildDeck(false); renderFlash();
+  });
+  document.addEventListener('keydown', e => {
+    if (currentView !== 'flash') return;
+    const t = e.target;
+    if (t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) return;
+    if (e.key === 'ArrowRight') { e.preventDefault(); flashStep(1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); flashStep(-1); }
+    else if (e.key === ' ' && !(t && t.tagName === 'BUTTON')) { e.preventDefault(); flipCard(); }
+  });
+
+  /* ------------------------------------------------------------------ */
+  /* Practice exam                                                      */
+  /* ------------------------------------------------------------------ */
+  const exam = {
+    phase: 'setup',       // setup | run | result
+    qs: [], sel: [], flag: new Set(),
+    i: 0, endAt: 0, timed: true, timer: null, confirming: false,
+    results: [], onlyWrong: false, label: '',
+    cfg: {
+      mode: store.get('examMode', 'custom'),
+      count: store.get('examCount', '20'),
+      domain: store.get('examDomain', 'all'),
+      topic: store.get('examTopic', 'all'),
+      timed: store.get('examTimed', true)
+    }
+  };
+  if (!validDomain(exam.cfg.domain)) exam.cfg.domain = 'all';
+  if (exam.cfg.topic !== 'all' && !topicsFor(exam.cfg.domain).includes(exam.cfg.topic)) exam.cfg.topic = 'all';
+  const examEl = $('#view-exam');
+  const setEq = (a, b) => a.size === b.size && [...a].every(x => b.has(x));
+  const fmt = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+
+  function renderExam() {
+    if (exam.phase === 'setup') renderSetup();
+    else if (exam.phase === 'run') renderRun();
+    else renderResult();
+  }
+
+  function renderSetup() {
+    const best = store.get('best', null);
+    const { mode } = exam.cfg;
+    const counts = ['10', '20', '40', '60', '100', 'all'];
+    const bank = Object.keys(DOMAINS).map(d =>
+      `${DOMAINS[d].short}: ${QUESTIONS.filter(q => q.domain === d).length}`).join(' · ');
+    const custom = `
+      <div class="toolbar">
+        <label>Domain <select id="e-domain">${domainOptions(exam.cfg.domain)}</select></label>
+        <label>Topic <select id="e-topic">${topicOptions(exam.cfg.domain, exam.cfg.topic)}</select></label>
+        <label>Questions
+          <select id="e-count">${counts.map(c =>
+            `<option value="${c}" ${c === exam.cfg.count ? 'selected' : ''}>${c === 'all' ? 'All' : c}</option>`).join('')}</select>
+        </label>
+        <label><input type="checkbox" id="e-timed" ${exam.cfg.timed ? 'checked' : ''}> Timed (${SECONDS_PER_Q / 60} min per question)</label>
+      </div>`;
+    const mock = `<p class="meta">40 questions: ${MOCK_PLAN.D1} from Domain 1, ${MOCK_PLAN.D2} from Domain 2 and ${MOCK_PLAN.D3} from Domain 3, drawn at random. Timed: ${MOCK_SECONDS / 60} minutes.</p>`;
+    examEl.innerHTML = `
+      <div class="panel">
+        <h2>Practice exam</h2>
+        <p>${QUESTIONS.length} questions in the bank (${bank}). Questions and answer options are shuffled every attempt.
+           Pass mark: ${PASS_PCT}%. Some questions need several answers: read the instruction under the question.</p>
+        <div class="toolbar">
+          <label>Mode
+            <select id="e-mode">
+              <option value="custom" ${mode === 'custom' ? 'selected' : ''}>Custom practice</option>
+              <option value="mock" ${mode === 'mock' ? 'selected' : ''}>Mock exam (weighted by domain)</option>
+            </select>
+          </label>
+        </div>
+        ${mode === 'mock' ? mock : custom}
+        <button class="btn primary" data-act="start">Start exam</button>
+        ${best ? `<p class="meta" style="margin-top:16px">Best score so far: ${best.pct}% (${best.correct}/${best.total}) on ${esc(best.date)}</p>` : ''}
+      </div>`;
+  }
+
+  function pickQuestions() {
+    const { mode, count, domain, topic } = exam.cfg;
+    if (mode === 'mock') {
+      return shuffle(Object.entries(MOCK_PLAN).flatMap(([d, n]) =>
+        shuffle(QUESTIONS.filter(q => q.domain === d)).slice(0, n)));
+    }
+    const pool = shuffle(QUESTIONS.filter(q =>
+      (domain === 'all' || q.domain === domain) && (topic === 'all' || q.topic === topic)));
+    return count === 'all' ? pool : pool.slice(0, +count);
+  }
+
+  function startExam() {
+    const pool = pickQuestions();
+    if (!pool.length) return;
+    const mock = exam.cfg.mode === 'mock';
+    exam.qs = pool.map(q => ({ ...q, opts: shuffle(q.options.map((text, k) => ({ text, k }))) }));
+    exam.sel = exam.qs.map(() => new Set());
+    exam.flag = new Set();
+    exam.i = 0;
+    exam.confirming = false;
+    exam.onlyWrong = false;
+    exam.timed = mock || exam.cfg.timed;
+    exam.label = mock ? 'Mock exam' : 'Practice';
+    exam.phase = 'run';
+    clearInterval(exam.timer);
+    if (exam.timed) {
+      const secs = mock ? MOCK_SECONDS : exam.qs.length * SECONDS_PER_Q;
+      exam.endAt = Date.now() + secs * 1000;
+      exam.timer = setInterval(tick, 1000);
+    }
+    renderExam();
+  }
+
+  function tick() {
+    const left = Math.max(0, Math.round((exam.endAt - Date.now()) / 1000));
+    const t = $('#timer');
+    if (t) { t.textContent = `⏱ ${fmt(left)}`; t.classList.toggle('low', left <= 60); }
+    if (left <= 0) finishExam();
+  }
+
+  function renderRun() {
+    const q = exam.qs[exam.i];
+    const multi = q.answer.length > 1;
+    const sel = exam.sel[exam.i];
+    const un = exam.sel.filter(s => !s.size).length;
+    examEl.innerHTML = `
+      <div class="panel">
+        <div class="exam-head">
+          <span class="tag">D${q.domain.slice(1)} · ${esc(q.topic)}</span>
+          <span id="timer" class="timer">${exam.timed ? '' : 'Untimed'}</span>
+        </div>
+        <h2 class="qtext">Question ${exam.i + 1} of ${exam.qs.length}. ${esc(q.q)}</h2>
+        <p class="hint">${multi ? `Choose ${q.answer.length} answers.` : 'Choose one answer.'}</p>
+        <div class="opts" role="${multi ? 'group' : 'radiogroup'}">
+          ${q.opts.map(o => `
+            <label class="opt ${sel.has(o.k) ? 'on' : ''}">
+              <input type="${multi ? 'checkbox' : 'radio'}" name="opt" value="${o.k}" ${sel.has(o.k) ? 'checked' : ''}>
+              <span>${esc(o.text)}</span>
+            </label>`).join('')}
+        </div>
+        ${exam.confirming ? `
+          <div class="confirm" role="alertdialog" aria-label="Confirm submit">
+            <p><strong>${un ? `You have ${un} unanswered question${un > 1 ? 's' : ''}.` : 'All questions answered.'}</strong>
+               Submit your exam now?</p>
+            <button class="btn primary" data-act="confirm-submit">Yes, submit</button>
+            <button class="btn" data-act="cancel-submit">Keep working</button>
+          </div>` : ''}
+        <div class="row">
+          <button class="btn" data-act="prev" ${exam.i === 0 ? 'disabled' : ''}>← Previous</button>
+          <button class="btn" data-act="flag">${exam.flag.has(exam.i) ? 'Unflag' : 'Flag for review'} ⚑</button>
+          <span class="spacer"></span>
+          <button class="btn" data-act="next" ${exam.i === exam.qs.length - 1 ? 'disabled' : ''}>Next →</button>
+          <button class="btn primary" data-act="submit">Submit exam</button>
+        </div>
+        <div class="palette" id="palette">${paletteHtml()}</div>
+      </div>`;
+    if (exam.timed) tick();
+  }
+
+  function paletteHtml() {
+    return exam.qs.map((_, n) => `
+      <button class="pal ${exam.sel[n].size ? 'answered' : ''} ${n === exam.i ? 'current' : ''} ${exam.flag.has(n) ? 'flag' : ''}"
+              data-act="goto" data-n="${n}" aria-label="Go to question ${n + 1}">${n + 1}</button>`).join('');
+  }
+
+  function onSelect(input) {
+    const q = exam.qs[exam.i];
+    const k = +input.value;
+    const sel = exam.sel[exam.i];
+    if (q.answer.length > 1) {
+      if (input.checked) sel.add(k); else sel.delete(k);
+    } else {
+      sel.clear(); sel.add(k);
+    }
+    $$('.opt', examEl).forEach(l => {
+      const inp = $('input', l);
+      l.classList.toggle('on', sel.has(+inp.value));
+    });
+    $('#palette').innerHTML = paletteHtml();
+  }
+
+  function finishExam() {
+    exam.confirming = false;
+    clearInterval(exam.timer);
+    exam.results = exam.qs.map((q, i) => setEq(exam.sel[i], new Set(q.answer)));
+    const correct = exam.results.filter(Boolean).length;
+    const pct = Math.round((correct / exam.qs.length) * 100);
+    const prev = store.get('best', null);
+    if (!prev || pct > prev.pct) {
+      store.set('best', { pct, correct, total: exam.qs.length, date: new Date().toLocaleDateString() });
+    }
+    exam.phase = 'result';
+    renderExam();
+    window.scrollTo({ top: 0 });
+  }
+
+  function breakdown(keyFn, labelFn) {
+    const map = {};
+    exam.qs.forEach((q, i) => {
+      const k = keyFn(q);
+      const t = map[k] || (map[k] = { ok: 0, n: 0 });
+      t.n++; if (exam.results[i]) t.ok++;
+    });
+    return Object.keys(map).sort().map(k => {
+      const v = map[k], p = Math.round((v.ok / v.n) * 100);
+      return `<tr><td>${esc(labelFn(k))}</td><td>${v.ok}/${v.n}</td>
+        <td><div class="bar"><span style="width:${p}%"></span></div></td><td>${p}%</td></tr>`;
+    }).join('');
+  }
+
+  function renderResult() {
+    const total = exam.qs.length;
+    const correct = exam.results.filter(Boolean).length;
+    const pct = Math.round((correct / total) * 100);
+    const pass = pct >= PASS_PCT;
+
+    const review = exam.qs.map((q, i) => ({ q, i }))
+      .filter(({ i }) => !exam.onlyWrong || !exam.results[i])
+      .map(({ q, i }) => `
+        <article class="rev ${exam.results[i] ? 'ok' : 'ko'}">
+          <h3>${i + 1}. ${esc(q.q)}</h3>
+          <p class="why">D${q.domain.slice(1)} · ${esc(q.topic)}</p>
+          <ul>${q.opts.map(o => {
+            const isC = q.answer.includes(o.k), isS = exam.sel[i].has(o.k);
+            const cls = isC ? 'correct' : isS ? 'wrong' : '';
+            const mark = isC ? '✓ ' : isS ? '✗ ' : '';
+            return `<li class="${cls}">${mark}${esc(o.text)}${isS ? ' <em>(your answer)</em>' : ''}</li>`;
+          }).join('')}</ul>
+          <p class="why">${esc(q.explain || '')}</p>
+        </article>`).join('');
+
+    examEl.innerHTML = `
+      <div class="panel">
+        <h2>${esc(exam.label)} results</h2>
+        <div class="score ${pass ? 'pass' : 'fail'}">${pct}% · ${pass ? 'Pass' : 'Not yet'}</div>
+        <p class="meta">${correct} of ${total} correct. Pass mark ${PASS_PCT}%.</p>
+        <table><thead><tr><th>By domain</th><th>Score</th><th></th><th></th></tr></thead>
+          <tbody>${breakdown(q => q.domain, dName)}</tbody></table>
+        <table><thead><tr><th>By topic</th><th>Score</th><th></th><th></th></tr></thead>
+          <tbody>${breakdown(q => q.topic, t => t)}</tbody></table>
+        <div class="row">
+          <button class="btn primary" data-act="again">New exam</button>
+          <button class="btn" data-act="toggle-wrong">${exam.onlyWrong ? 'Show all questions' : 'Show only mistakes'}</button>
+        </div>
+      </div>
+      <div class="review">${review || '<p class="meta">No mistakes. Perfect score!</p>'}</div>`;
+  }
+
+  examEl.addEventListener('click', e => {
+    const btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    switch (btn.dataset.act) {
+      case 'start': startExam(); break;
+      case 'prev': exam.confirming = false; exam.i = Math.max(0, exam.i - 1); renderExam(); break;
+      case 'next': exam.confirming = false; exam.i = Math.min(exam.qs.length - 1, exam.i + 1); renderExam(); break;
+      case 'goto': exam.confirming = false; exam.i = +btn.dataset.n; renderExam(); break;
+      case 'flag':
+        if (exam.flag.has(exam.i)) exam.flag.delete(exam.i); else exam.flag.add(exam.i);
+        renderExam(); break;
+      case 'submit': exam.confirming = true; renderExam(); break;
+      case 'confirm-submit': finishExam(); break;
+      case 'cancel-submit': exam.confirming = false; renderExam(); break;
+      case 'again': exam.phase = 'setup'; renderExam(); break;
+      case 'toggle-wrong': exam.onlyWrong = !exam.onlyWrong; renderExam(); break;
+    }
+  });
+  examEl.addEventListener('change', e => {
+    const t = e.target;
+    if (t.matches('input[name="opt"]')) return onSelect(t);
+    if (t.id === 'e-mode') { exam.cfg.mode = t.value; store.set('examMode', t.value); renderSetup(); }
+    else if (t.id === 'e-domain') {
+      exam.cfg.domain = t.value; exam.cfg.topic = 'all';
+      store.set('examDomain', t.value); store.set('examTopic', 'all'); renderSetup();
+    }
+    else if (t.id === 'e-topic') { exam.cfg.topic = t.value; store.set('examTopic', t.value); }
+    else if (t.id === 'e-count') { exam.cfg.count = t.value; store.set('examCount', t.value); }
+    else if (t.id === 'e-timed') { exam.cfg.timed = t.checked; store.set('examTimed', t.checked); }
+  });
+
+  /* ------------------------------------------------------------------ */
+  buildDeck(false);
+  renderFlash();
+  renderExam();
+})();
+
+</script>
+</body>
+</html>
